@@ -1,0 +1,155 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>MOViE MAGiC</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Advanced-NavBar---Multi-dropdown-1.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Advanced-NavBar---Multi-dropdown.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/netstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/regstyle.css' %}">
+</head>
+<body style="padding: 0px 0;">
+<div class="header2 bg-success-gradiant">
+  <div class="">
+   
+    <!-- Header 1 code -->
+    <nav class="navbar navbar-expand-lg h2-nav">
+      <a class="navbar-brand" href="#"><img src="{% static 'images//nav70.png' %}" alt="MOViE MAGiC"   /></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header2" aria-controls="header2" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="icon-menu"></span>
+			</button>
+      <div class="collapse navbar-collapse hover-dropdown" id="header2">
+        <ul class="navbar-nav">
+          <li class="nav-item active"><a class="nav-link" >Home</a></li>
+          <li class="nav-item"><a class="nav-link" >About Us</a></li>
+          <li class="nav-item"><a class="nav-link" >Contact</a></li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+           
+          <li class="nav-item"><a class="btn rounded-pill btn-dark py-2 px-4" href="{% url 'adlog' %}">Log Out Admin</a></li>
+          
+        </ul>
+      </div>
+    </nav>
+    <!-- End Header 1 code -->
+  </div>
+</div>
+
+     
+      
+    
+    
+  </div>
+</nav>
+   {% csrf_token %} 
+<h1> Welcome, ADMIN</h1>
+<div class="main">
+
+        <section class="signup">
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
+            <div class="container">
+                <div class="signup-content">
+
+                        <form method="POST" id="signup-form" class="signup-form" enctype="multipart/form-data">
+                        {% csrf_token %}
+                         <div class="form-group">
+                            <input type="text" class="form-input" name="movieId" id="name" placeholder="Movie ID" value="{{ Movieob.movieId }}"required/>
+                        </div>
+                         <div class="form-group">
+                            <input type="text" class="form-input" name="title" id="name" placeholder="title" value="{{ Movieob.title }}" required/>
+                        </div>
+                         <div class="form-group">
+                            <input type="text" class="form-input" name="genres" id="name" placeholder="genres" value="{{ Movieob.genres }}" required/>
+                        </div>
+                         <div class="form-group">
+                            <input type="text" class="form-input" name="imdbId" id="name" placeholder="imdnId"  value="{{ Movieob.imdbId }}" required/>
+                        </div>
+                         <div class="form-group">
+                            <input type="text" class="form-input" name="average" id="name" placeholder="average" value="{{ Movieob.average }}" required/>
+                        </div>
+                         <div class="form-group">
+                            <input type="text" class="form-input" name="description" id="name" placeholder="description" value="{{ Movieob.description }}" required/>
+                        </div>
+                        <div class="form-group">
+                         
+                            <input type="file" class="form-input" name="image" id="name" placeholder="description" />
+                    
+                            </form>
+                        </div>
+                        <div class="form-group">
+                        
+                            <input type="file" class="form-input" name="video" id="name" placeholder="description"  />
+                        </div>
+                        {{form.errors}}
+                        {{ form.non_field_errors }}
+                        <input type="submit" name="submit" id="submit" class="form-submit" value="Submit"/>
+                    </form>
+                    </div>
+                  </div>
+              </section>
+              </div>
+               <div class="form-group">
+                          <form method="POST" enctype="multipart/form-data" action="{% url 'mlmodel' %}">
+                            <input type="file" class="form-input" name="imagecheck" id="name" placeholder="description" />
+                            <input type="submit" name="imgch" id="submit" class="form-submit" value="Submit"/>
+                            {{ prediction }}
+                            </form>
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row no-gutters">
+  
+  {% for a in movieob %}  
+    <div class="col-md-4">
+      <img src="{{ a.image.url }}" class="card-img" alt="IMG" height='100px' width="200px">
+    </div>
+    
+   
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ a.title }}</h5>
+        <p class="card-text">{{ a.description }}</p>
+        <p class="card-text"><small class="text-muted">MOViE MaGiC</small></p>
+      </div>
+    </div>
+    {{ a.video.url }}
+    <div class="col-md-4">
+    <video controls="controls" style="height:'100px'; width:'200px'">
+      <source src="{{ a.video.url }}"  type="video/mp4" ></source>
+    </video>
+    </div>
+     {% endfor %}
+  </div>
+</div>
+
+
+
+<div class="card mb-3" style="max-width: 540px;">
+  <div class="row no-gutters">
+  
+  {% for a in review %}  
+    
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">NAME: {{ a.name }}</h5>
+        <p class="card-text"><h5>EMAIL</h5>{{ a.email }}</p>
+        <p class="card-text"><h5>MESSAGE</h5>{{ a.message }}</p>
+      </div>
+    </div>
+    
+     {% endfor %}
+  </div>
+</div>
+
+
+
+</body>
+</html>
+

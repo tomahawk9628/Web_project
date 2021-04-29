@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Image</title>
+       <style>
+       
+       </style>
+    </head>
+    <body>
+       
+       <form method="POST" enctype="multipart/form-data">  {% csrf_token %}  
+             {{form.as_p}}
+            <button type="submit">Upload</button>
+        </form>
+        {% for images in image %}
+    <img src="{{ images.image.url }}" style="height: 500px;width: 500px;">
+    {% endfor %}
+        {% for videos in video %}
+        {{ videos.as_p }}
+        <video controls="controls" >
+    <source src="{{ videos.video.url }}" type="video/mp4" style="height:500px ;width:500px;"></source>
+    {% endfor %}</video>
+        <p>  {{getvalue}} </p>
+    </body>
+    
+</html>

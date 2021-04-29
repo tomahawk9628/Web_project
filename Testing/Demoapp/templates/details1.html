@@ -1,0 +1,303 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>MOViE MAGiC</title>
+    <link rel="icon" href="{% static 'images//logotrans.png' %}" type="image/icon type">
+    <link rel="stylesheet" href="{% static 'assets1/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets1/fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets1/fonts/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets1/css/bootstrap-grid.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets1/css/bootstrap-reboot.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets1/css/default-skin.css' %}">
+    <link rel="stylesheet" href="{% static 'assets1/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets1/css/jquery.mCustomScrollbar.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets1/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'assets1/css/nouislider.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets1/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets1/css/photoswipe.cs' %}s">
+    <link rel="stylesheet" href="{% static 'assets1/css/plyr.css' %}">
+    <link rel="stylesheet" href="{% static 'assets1/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets1/css/styles.css' %}">
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Advanced-NavBar---Multi-dropdown-1.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Advanced-NavBar---Multi-dropdown.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/netstyle.css' %}">
+</head>
+
+<body>
+
+<div class="header2 bg-success-gradiant">
+  <div class="">
+    <!-- Header 1 code -->
+    <nav class="navbar navbar-expand-lg h2-nav">
+      <a class="navbar-brand" href="#"><img src="{% static 'images//nav70.png' %}" alt="MOViE MAGiC"   /></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header2" aria-controls="header2" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="icon-menu"></span>
+			</button>
+      <div class="collapse navbar-collapse hover-dropdown" id="header2">
+        <ul class="navbar-nav">
+          <li class="nav-item active"><a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
+        </ul>
+		<ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <div class="input-group ml-auto">
+            <form method="POST" action="{% url 'search' %}">
+          {% csrf_token %}
+            <input type="text" class="form-control" name="smovies" placeholder="Search Movies" aria-label="Recipient's username" aria-describedby="basic-addon2" style="height: 40px; width: 250px;" required="yes">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" style="width: 120px; height: 40px">Search</button>
+            </div>
+          </form>
+          </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+          <li class="nav-item"><a class="btn rounded-pill btn-dark py-2 px-4" href="{% url 'logout' %}">Log Out</a></li>
+        {% else %}
+         <li class="nav-item active"><a class="nav-link" href="{% url 'login_url' %}">Login</a></li>
+          <li class="nav-item"><a class="btn rounded-pill btn-dark py-2 px-4" href="{% url 'register' %}">Sign up</a></li>
+
+        {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <!-- End Header 1 code -->
+  </div>
+</div>
+<!-- header -->
+	
+	<!-- end header -->
+
+	<!-- details -->
+	<section class="section details">
+		<!-- details background -->
+		<div class="details__bg" data-bg="img/home/home__bg.jpg"></div>
+		<!-- end details background -->
+        
+		<!-- details content -->
+		<div class="container">
+			<div class="row">
+				<!-- title -->
+				<div class="col-12">
+					<h1 class="details__title">{{ movie.title }}</h1>
+				</div>
+				<!-- end title -->
+
+				<!-- content -->
+				<div class="col-12 col-xl-6">
+					<div class="card card-details">
+						<div class="row">
+							<!-- card cover -->
+							<div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-5">
+								<div class="card-cover">
+									{% if movie.image %}
+										<img src="{{ movie.image.url }}" alt="">
+									{% else %}
+										<img src="/Web/Testing/Dempapp/media/imgdb/dum.jpg" alt="{{movie.title}}">
+									{% endif %}
+								</div>
+							</div>
+							<!-- end card cover -->
+
+							<!-- card content -->
+							<div class="col-6">
+								<div class="card-title" >
+									<div class="card-wrap">
+										<span class="card-title">Rating:<i class="icon ion-ios-star"></i>{{ movie.average }}</span>
+									</div>
+									<ul>
+										<li><p class="card-text">Genre: {{ movie.genres }}</p>
+										</li>
+									</ul>
+
+									<div class="card-body">
+										{{ movie.description }}
+									</div>
+								</div>
+							</div>
+							<div class="col-6"></div>
+							<!-- end card content -->
+						</div>
+					</div>
+				</div>
+				<!-- end content -->
+
+				<!-- player -->
+				<div class="col-12 col-xl-6">
+					{% if movie.video %}
+					<video class="img-responsive" controls="" crossorigin="" playsinline="" poster="../../../cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" id="player" size="576">
+						<!-- Video files -->
+						<source src="{{ movie.video.url }}" type="video/mp4" size="576">
+
+						<!-- Caption files -->
+
+						<!-- Fallback for browsers that don't support the <video> element -->
+						<a href="{{ movie.video.url }}" download="">Download</a>
+					</video>
+					{% else %}
+					<video class="img-responsive" controls="" crossorigin="" playsinline="" poster="../../../cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" id="player" size="576">
+						<!-- Video files -->
+						<source src="/Web/Testing/Dempapp/media/video/happy.mp4" type="video/mp4" size="576">
+
+						<!-- Caption files -->
+
+						<!-- Fallback for browsers that don't support the <video> element -->
+						<a href="/Web/Testing/Dempapp/media/video/happy.mp4" download="">Download</a>
+					</video>
+					{% endif %}
+				</div>
+				<!-- end player -->
+				{% if m1 %}
+				<div class="col-12">
+					<div class="row">
+						<div class="card-deck">
+							<div class="card">
+								<a href="{% url 'mdetails' movie_id=m1.movieId %}">
+								{% if m1.image %}
+								<img class="card-img-top" src="{{m1.image.url}}" alt="Card image cap">
+								{% else %}
+								<img class="card-img-top" src="/Web/Testing/Dempapp/media/imgdb/dum.jpg" alt="{{m1.title}}">
+								{% endif %}
+								</a>
+								<div class="card-body">
+									<h5 class="card-title">
+										{{m1.title}}
+									</h5>
+									<p class="card-text">{{m1.description}}</p>
+									<p class="card-text">Rating: {{m1.average}}</p>
+								</div>
+							</div>
+							<div class="card">
+								<a href="{% url 'mdetails' movie_id=m2.movieId %}">
+								{% if m2.image %}
+								<img class="card-img-top" src="{{m2.image.url}}" alt="Card image cap">
+								{% else %}
+								<img class="card-img-top" src="/Web/Testing/Dempapp/media/imgdb/dum.jpg" alt="Card image cap">
+								{% endif %}
+								</a>
+								<div class="card-body">
+									<h5 class="card-title">
+										{{m2.title}}
+									</h5>
+									<p class="card-text">{{m2.description}}</p>
+									<p class="card-text">Rating: {{m2.average}}</p>
+								</div>
+							</div>
+							<div class="card">
+								<a href="{% url 'mdetails' movie_id=m3.movieId %}">
+								{% if m3.image %}
+								<img class="card-img-top" src="{{m3.image.url}}" alt="Card image cap">
+								{% else %}
+								<img class="card-img-top" src="/Web/Testing/Dempapp/media/imgdb/dum.jpg" alt="Card image cap">
+								{% endif %}
+								</a>
+								<div class="card-body">
+									<h5 class="card-title">
+										{{m3.title}}
+									</h5>
+									<p class="card-text">{{m3.description}}</p>
+									<p class="card-text">Rating: {{m3.average}}</p>
+								</div>
+							</div>
+							<div class="card">
+								<a href="{% url 'mdetails' movie_id=m4.movieId %}">
+								{% if m4.image %}
+								<img class="card-img-top" src="{{m4.image.url}}" alt="Card image cap">
+								{% else %}
+								<img class="card-img-top" src="/Web/Testing/Dempapp/media/imgdb/dum.jpg" alt="Card image cap">
+								{% endif %}
+								</a>
+								<div class="card-body">
+									<h5 class="card-title">
+										{{m4.title}}
+									</h5>
+									<p class="card-text">{{m4.description}}</p>
+									<p class="card-text">Rating: {{m4.average}}</p>
+								</div>
+							</div>
+							<div class="card">
+								<a href="{% url 'mdetails' movie_id=m5.movieId %}">
+								{% if m5.image %}
+								<img class="card-img-top" src="{{m5.image.url}}" alt="Card image cap">
+								{% else %}
+								<img class="card-img-top" src="/Web/Testing/Dempapp/media/imgdb/dum.jpg" alt="Card image cap">
+								{% endif %}
+								</a>
+								<div class="card-body">
+									<h5 class="card-title">
+										{{m5.title}}
+									</h5>
+									<p class="card-text">{{m5.description}}</p>
+									<p class="card-text">Rating: {{m5.average}}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endif %}
+<!--				<div class="col-12">-->
+<!--					<div class="details__wrap">-->
+<!--						&lt;!&ndash; availables &ndash;&gt;-->
+<!--						<div class="details__devices">-->
+<!--							<span class="details__devices-title">Available on devices:</span>-->
+<!--							<ul class="details__devices-list">-->
+<!--								<li><i class="icon ion-logo-apple"></i><span>IOS</span></li>-->
+<!--								<li><i class="icon ion-logo-android"></i><span>Android</span></li>-->
+<!--								<li><i class="icon ion-logo-windows"></i><span>Windows</span></li>-->
+<!--								<li><i class="icon ion-md-tv"></i><span>Smart TV</span></li>-->
+<!--							</ul>-->
+<!--						</div>-->
+<!--						&lt;!&ndash; end availables &ndash;&gt;-->
+
+<!--						&lt;!&ndash; share &ndash;&gt;-->
+<!--						<div class="details__share">-->
+<!--							<span class="details__share-title">Share with friends:</span>-->
+
+<!--							<ul class="details__share-list">-->
+<!--								<li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>-->
+<!--								<li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>-->
+<!--								<li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>-->
+<!--								<li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>-->
+<!--							</ul>-->
+<!--						</div>-->
+<!--						&lt;!&ndash; end share &ndash;&gt;-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--		</div>-->
+		<!-- end details content -->
+	</section>
+	<!-- end details -->
+
+	<!-- content -->
+	
+
+	<!-- JS -->
+	<script src="{% static 'assets1/js/jquery-3.3.1.min.js' %}"></script>
+	<script src="{% static 'assets1/js/bootstrap.bundle.min.js' %}"></script>
+	<script src="{% static 'assets1/js/owl.carousel.min.js' %}"></script>
+	<script src="{% static 'assets1/js/jquery.mousewheel.min.js' %}"></script>
+	<script src="{% static 'assets1/js/jquery.mCustomScrollbar.min.js' %}"></script>
+	<script src="{% static 'assets1/js/wNumb.js' %}"></script>
+	<script src="{% static 'assets1/js/nouislider.min.js' %}"></script>
+	<script src="{% static 'assets1/js/plyr.min.js' %}"></script>
+	<script src="{% static 'assets1/js/jquery.morelines.min.js' %}"></script>
+	<script src="{% static 'assets1/js/photoswipe.min.js' %}"></script>
+	<script src="{% static 'assets1/js/photoswipe-ui-default.min.js' %}"></script>
+	<script src="{% static 'assets1/js/main.js' %}"></script>
+    <script src="{% static 'assets1/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets1/bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>

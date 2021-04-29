@@ -1,0 +1,124 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MOViE MAGiC</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'css/regstyle.css' %}">
+
+
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Advanced-NavBar---Multi-dropdown-1.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Advanced-NavBar---Multi-dropdown.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/netstyle.css' %}">
+</head>
+<body style="padding: 0px 0; background-image: url( {% static 'images//signup-bg.jpg' %});">
+
+
+<div class="header2 bg-success-gradiant">
+  <div class="">
+    <!-- Header 1 code -->
+    <nav class="navbar navbar-expand-lg h2-nav">
+      <a class="navbar-brand" href="#"><img src="{% static 'images//nav70.png' %}" alt="MOViE MAGiC"   /></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header2" aria-controls="header2" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="icon-menu"></span>
+			</button>
+      <div class="collapse navbar-collapse hover-dropdown" id="header2">
+        <ul class="navbar-nav">
+          <li class="nav-item active"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a class="nav-link" href="{% url 'login_url' %}">Login</a></li>
+          <li class="nav-item"><a class="btn rounded-pill btn-dark py-2 px-4" href="{% url 'register' %}">Sign up</a></li>
+          <li class="nav-item"><a class="btn rounded-pill btn-dark py-2 px-4" href="{% url 'adlog' %}">Admin Login</a></li>
+        </ul>
+      </div>
+    </nav>
+    <!-- End Header 1 code -->
+  </div>
+</div>
+
+    <div class="main">
+
+        <section class="signup">
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form">
+                      {% csrf_token %} 
+                        <h2 class="form-title" style="color:#7d7d7d;" >Create account</h2>
+                        <br>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="username" id="name" placeholder="Your Name" required/>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email" required/>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" name="password1" id="password" placeholder="Password" required/>
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" name="password2" id="re_password" required placeholder="Repeat your password"/>
+                        </div>
+                        <div class="form-group" >
+                            <input type="checkbox" name="agree-term" id="agree-term"  class="agree-term" required/>
+                            <label for="agree-term" class="label-agree-term" ><span><span></span></span>I agree all statements in  <a onclick="term()" class="term-service">Terms of service</a></label>
+                        </div>
+                        <div id="myDIV" style="display:none; ">
+                          <ui>
+                          <li>You Agree That the above information provided is valid</li>
+                          <li>You agree that to get email from our website </li>
+                          </ui>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                        </div>
+                    </form>
+                    <center>
+                    <h6 style="color:red;">{{ form.errors }}</h6></center>
+                    <p class="loginhere">
+                        Have already an account ? <a href="{% url 'login_url' %}" class="loginhere-link">Login here</a>
+                    </p>
+
+                    
+                </div>
+            </div>
+        </section>
+
+    </div>
+     <script>
+
+function term() {
+var x = document.getElementById("myDIV");
+if (x.style.display === "block") {
+  x.style.display = "none";
+}
+else{
+  x.style.display = "block";
+}
+}
+</script>
+    <!-- JS -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

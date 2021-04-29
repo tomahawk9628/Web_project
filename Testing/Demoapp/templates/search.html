@@ -1,0 +1,119 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>MOViE MAGiC</title>
+    <link rel="icon" href="{% static 'images//logotrans.png' %}" type="image/icon type">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/fonts/simple-line-icons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Advanced-NavBar---Multi-dropdown-1.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/Advanced-NavBar---Multi-dropdown.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/netstyle.css' %}">
+</head>
+<body>
+
+<div class="header2 bg-success-gradiant">
+  <div class="">
+    <!-- Header 1 code -->
+    <nav class="navbar navbar-expand-lg h2-nav">
+      <a class="navbar-brand" href="#"><img src="{% static 'images//nav70.png' %}" alt="MOViE MAGiC"   /></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header2" aria-controls="header2" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="icon-menu"></span>
+			</button>
+      <div class="collapse navbar-collapse hover-dropdown" id="header2">
+        <ul class="navbar-nav">
+          <li class="nav-item active"><a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <div class="input-group ml-auto">
+            <form method="POST" action="{% url 'search' %}">
+          {% csrf_token %}
+            <input type="text" class="form-control" name="smovies" placeholder="Search Movies" aria-label="Recipient's username" aria-describedby="basic-addon2" style="height: 40px; width: 250px;" required="yes">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" style="width: 120px; height: 40px">Search</button>
+            </div>
+          </form>
+          </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+          <li class="nav-item"><a class="btn rounded-pill btn-dark py-2 px-4" href="{% url 'logout' %}">Log Out</a></li>
+        {% else %}
+         <li class="nav-item active"><a class="nav-link" href="{% url 'login_url' %}">Login</a></li>
+          <li class="nav-item"><a class="btn rounded-pill btn-dark py-2 px-4" href="{% url 'register' %}">Sign up</a></li>
+
+        {% endif %}
+        </ul>
+      </div>
+    </nav>
+    <!-- End Header 1 code -->
+  </div>
+</div>
+
+<div class="section">
+
+  <div class="container">
+    <h1> Welcome, {{user.username}}</h1>
+    <div class="row">
+    {% if movieob %}
+      {% for a in movieob %}
+      <div class="col-sm-3">
+              <div class="card">
+								<a href="{% url 'mdetails' movie_id=a.movieId %}">
+								{% if a.image %}
+								<img class="card-img-top" src="{{a.image.url}}" alt="Card image cap" style="height: 250px">
+								{% else %}
+								<img class="card-img-top" src="/Web/Testing/Dempapp/media/imgdb/dum.jpg" alt="{{a.title}}">
+								{% endif %}
+								</a>
+								<div class="card-body">
+									<h5 class="card-title">
+										{{a.title}}
+									</h5>
+									<p class="card-text" style="height: 50px">{{a.genres}}</p>
+									<p class="card-text">Rating: {{a.average}}</p>
+								</div>
+							</div>
+              </div>
+      {% endfor %}
+      {% endif %}
+      {% if movieob2 %}
+      {% for b in movieob2 %}
+      <div class="col-sm-3">
+              <div class="card">
+								<a href="{% url 'mdetails' movie_id=b.movieId %}">
+								{% if b.image %}
+								<img class="card-img-top" src="{{b.image.url}}" alt="Card image cap" style="height: 250px">
+								{% else %}
+								<img class="card-img-top" src="/Web/Testing/Dempapp/media/imgdb/dum.jpg" alt="{{b.title}}">
+								{% endif %}
+								</a>
+								<div class="card-body">
+									<h5 class="card-title">
+										{{b.title}}
+									</h5>
+									<p class="card-text" style="height: 50px">{{b.genres}}</p>
+									<p class="card-text">Rating: {{b.average}}</p>
+								</div>
+							</div>
+              </div>
+      {% endfor %}
+    {% endif %}
+    {% if not movieob and not movieob2 %}
+    <div class="col-md-12">
+        <center><h1 class="text-white font-weight-bold" style="padding-top: 250px">No Movies to Show</h1><center>
+      </div>
+    {% endif%}
+    </div>
+</div>
+</body>
+</html>
+
